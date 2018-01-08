@@ -10,6 +10,12 @@ function playerWin() {
   playerScore++;
 }
 
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  games = 0;
+}
+
 function computerPlay() {
   let computerSelection = Math.floor(Math.random(100) * 3);
   switch (computerSelection) {
@@ -35,21 +41,21 @@ function userPlay(choice) {
   playRound(playerSelection, computerSelection);
   games++;
   console.log(games);
-  if (games == 5) {
+  if (games >= 5) {
     if (playerScore == computerScore) {
-      console.log(`It's a tie! You both earned ${playerScore} points.`)
+      alert(`It's a tie! You both earned ${playerScore} points.`)
     } else {
-    playerScore > computerScore ? console.log(`Congratulations, you win with a score of ${playerScore} compared to ${computerScore}!`) : console.log(`Sorry, you lose with a score of ${playerScore} compared to ${computerScore}.`);
+    playerScore > computerScore ? alert(`Congratulations, you win with a score of ${playerScore} compared to ${computerScore}!`) : alert(`Sorry, you lose with a score of ${playerScore} compared to ${computerScore}.`);
     }
-    games++;
+    document.querySelector('.message').innerHTML = '<p>';
+    resetGame();
   }
-  
 }
 
 function playRound(playerSelection, computerSelection) {
   const winningMessage = `You win! You picked ${playerSelection} and computer picked ${computerSelection}.`
   const losingMessage = `You lose, You picked ${playerSelection} and computer picked ${computerSelection}.`
-  const container = document.querySelector('.item');
+  const container = document.querySelector('.message');
   const para = document.createElement('p');
 
   if (playerSelection == computerSelection) {
@@ -58,7 +64,7 @@ function playRound(playerSelection, computerSelection) {
     switch (playerSelection) {
       case "rock":
         if (computerSelection == "paper") {
-          computerWin()
+          computerWin();
           container.appendChild(para).textContent = losingMessage;
         } else {
           container.appendChild(para).textContent = winningMessage;
@@ -68,19 +74,19 @@ function playRound(playerSelection, computerSelection) {
       case "paper":
         if (computerSelection == "rock") {
           container.appendChild(para).textContent = winningMessage;
-          playerWin()
+          playerWin();
         } else {
           container.appendChild(para).textContent = losingMessage;
-          computerWin()
+          computerWin();
         }
       break;
       case "scissors":
         if (computerSelection == "rock") {
           container.appendChild(para).textContent = winningMessage;
-          playerWin()
+          playerWin();
         } else {
           container.appendChild(para).textContent = losingMessage;
-          computerWin()
+          computerWin();
         }
       break;
     }
